@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - FreshMart</title>
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';if(t==='dark')document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: '#22C55E',
+        secondary: '#16A34A',
+        accent: '#F59E0B',
+      },
+      fontFamily: {
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+.revealed{opacity:1;transform:translateY(0)}
+.hover-lift{transition:transform .3s ease,box-shadow .3s ease}
+.hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.dark .hover-lift:hover{box-shadow:0 12px 32px rgba(255,255,255,.04)}
+</style>
+</head>
+<body class="bg-white dark:bg-black font-body text-gray-800 dark:text-gray-200">
+<nav id="main-navbar" class="bg-white dark:bg-black shadow-md sticky top-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-16 lg:h-18">
+      <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+        <div class="w-9 h-9 bg-green-600 rounded-xl flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+        </div>
+        <div>
+          <span class="text-xl font-bold text-green-600 dark:text-green-400 font-['Poppins'] leading-none">FreshMart</span>
+          <p class="text-[10px] text-gray-500 dark:text-gray-400 leading-none">Fresh Groceries Delivered</p>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="toggleRTL()" class="p-2 text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors text-xs font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" title="Toggle RTL/LTR">RTL</button>
+        <button id="theme-toggle" class="p-2 text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" title="Toggle dark mode">
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="min-h-screen flex items-center justify-center p-4 lg:p-8">
+  <div class="w-full max-w-4xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row reveal">
+    <div class="w-full lg:w-1/2 p-8 lg:p-12">
+      <h1 class="font-heading text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-2">Welcome Back</h1>
+      <p class="text-gray-500 dark:text-gray-400 mb-8">Sign in to your FreshMart account</p>
+
+      <form class="space-y-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+          <input type="email" placeholder="you@example.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+          <input type="password" placeholder="Enter your password" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+        </div>
+
+        <div class="flex items-center justify-between">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary">
+            <span class="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+          </label>
+          <a href="#" class="text-sm font-medium text-primary hover:text-secondary transition">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 rounded-lg transition hover-lift">Login</button>
+      </form>
+
+      <div class="flex items-center gap-3 my-6">
+        <div class="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+        <span class="text-sm text-gray-400">or continue with</span>
+        <div class="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+      </div>
+
+      <div class="flex gap-2 sm:gap-3">
+        <button class="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+          <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          <span class="hidden sm:inline text-sm font-medium text-gray-700 dark:text-gray-300">Google</span>
+        </button>
+        <button class="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+          <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          <span class="hidden sm:inline text-sm font-medium text-gray-700 dark:text-gray-300">Facebook</span>
+        </button>
+        <button class="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span class="hidden sm:inline text-sm font-medium text-gray-700 dark:text-gray-300">Apple</span>
+        </button>
+      </div>
+
+      <p class="text-center mt-8 text-sm text-gray-500 dark:text-gray-400">
+        Don't have an account? <a href="signup.html" class="font-semibold text-primary hover:text-secondary transition">Sign up</a>
+      </p>
+    </div>
+
+    <div class="hidden lg:block w-1/2 relative">
+      <img src="assets/images/l1.jpg" alt="Fresh produce" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-primary/70"></div>
+      <div class="relative z-10 flex items-center justify-center h-full text-center px-12">
+        <div>
+          <h2 class="font-heading text-3xl font-bold text-white mb-4">Freshness Delivered</h2>
+          <p class="text-white/90 text-lg">Farm-to-table groceries at your doorstep. Quality you can trust, prices you will love.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/rtl.js?v=3"></script>
+<script src="assets/js/theme.js?v=3"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) entry.target.classList.add('revealed');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el) { observer.observe(el); });
+});
+</script>
+</body>
+</html>

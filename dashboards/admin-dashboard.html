@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - FreshMart</title>
+<link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+<script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';if(t==='dark')document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: '#22C55E',
+        secondary: '#16A34A',
+        accent: '#F59E0B',
+      },
+      fontFamily: {
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+.revealed{opacity:1;transform:translateY(0)}
+.hover-lift{transition:transform .3s ease,box-shadow .3s ease}
+.hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.dark .hover-lift:hover{box-shadow:0 12px 32px rgba(255,255,255,.04)}
+</style>
+</head>
+<body class="bg-white dark:bg-black font-body text-gray-800 dark:text-gray-200">
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside id="adminSidebar" class="fixed inset-y-0 left-0 z-40 w-72 lg:w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out lg:duration-300">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+      <a href="../index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 bg-green-600 rounded-xl flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+        </div>
+        <div>
+          <span class="text-xl font-bold text-green-600 dark:text-green-400 font-['Poppins'] leading-none">FreshMart</span>
+          <p class="text-[10px] text-gray-500 dark:text-gray-400 leading-none">Fresh Groceries Delivered</p>
+        </div>
+      </a>
+      <button onclick="toggleSidebar()" class="lg:hidden p-2 -mr-2 rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav class="px-3 py-4 space-y-0.5">
+      <a href="#" onclick="switchTab(event, 'admin-dashboard')" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold text-sm transition-colors" data-tab="admin-dashboard">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+        Dashboard
+      </a>
+      <a href="#" onclick="switchTab(event, 'admin-products')" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors" data-tab="admin-products">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        Products
+      </a>
+      <a href="#" onclick="switchTab(event, 'admin-orders')" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors" data-tab="admin-orders">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        Orders
+      </a>
+      <a href="#" onclick="switchTab(event, 'admin-customers')" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors" data-tab="admin-customers">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Customers
+      </a>
+      <a href="#" onclick="switchTab(event, 'admin-analytics')" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors" data-tab="admin-analytics">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        Analytics
+      </a>
+      <a href="#" onclick="switchTab(event, 'admin-settings')" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors" data-tab="admin-settings">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="absolute bottom-0 left-0 right-0 px-4 py-4 border-t border-gray-200 dark:border-gray-800">
+      <a href="../login.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors text-sm font-semibold">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        Log Out
+      </a>
+    </div>
+  </aside>
+
+  <!-- Overlay -->
+  <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm hidden lg:hidden transition-opacity duration-300" onclick="toggleSidebar()"></div>
+
+  <!-- Main Content -->
+  <div class="flex-1 lg:ml-64">
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-20 bg-white/80 dark:bg-black/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
+      <div class="flex items-center justify-between px-4 lg:px-8 py-4">
+        <div class="flex items-center gap-4">
+          <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <h1 class="font-heading font-bold text-xl lg:text-2xl text-gray-800 dark:text-gray-200">Admin Dashboard</h1>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button onclick="toggleRTL()" class="p-2 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors text-xs font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" title="Toggle RTL/LTR">RTL</button>
+          <button id="theme-toggle" class="p-2 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" title="Toggle dark mode">
+            <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </button>
+          <button class="relative p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-accent"></span>
+          </button>
+          <div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
+            <img src="../assets/images/avatar-admin.jpg" alt="Admin" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/20">
+            <div class="hidden sm:block">
+              <p class="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">John Admin</p>
+              <p class="text-xs text-primary font-medium">Administrator</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="px-4 lg:px-8 py-8">
+      <!-- Tab: Dashboard -->
+      <div id="tab-admin-dashboard" class="tab-content">
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6 mb-8 reveal">
+        <!-- Total Revenue -->
+        <div class="bg-primary/10 rounded-2xl p-6 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="flex items-center gap-1 text-sm font-semibold text-primary">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              +12.5%
+            </span>
+          </div>
+          <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200">$124,563</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Total Revenue</p>
+        </div>
+        <!-- Total Orders -->
+        <div class="bg-secondary/10 rounded-2xl p-6 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            </div>
+            <span class="flex items-center gap-1 text-sm font-semibold text-secondary">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              +8.2%
+            </span>
+          </div>
+          <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200">2,845</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Total Orders</p>
+        </div>
+        <!-- Total Customers -->
+        <div class="bg-accent/10 rounded-2xl p-6 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="flex items-center gap-1 text-sm font-semibold text-primary">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              +5.3%
+            </span>
+          </div>
+          <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200">12,460</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Total Customers</p>
+        </div>
+        <!-- Active Products -->
+        <div class="bg-primary/10 rounded-2xl p-6 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <span class="flex items-center gap-1 text-sm font-semibold text-primary">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              +3.1%
+            </span>
+          </div>
+          <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200">3,245</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Active Products</p>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 mb-8 reveal">
+        <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+          <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200">Recent Orders</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-left text-sm text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-gray-800">
+                <th class="px-6 py-4 font-medium">Order ID</th>
+                <th class="px-6 py-4 font-medium">Customer</th>
+                <th class="px-6 py-4 font-medium">Product</th>
+                <th class="px-6 py-4 font-medium">Amount</th>
+                <th class="px-6 py-4 font-medium">Status</th>
+                <th class="px-6 py-4 font-medium">Date</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-001</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Sarah Johnson</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Organic Apples (5kg)</td>
+                <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$45.99</td>
+                <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Completed</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 20, 2026</td>
+              </tr>
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-002</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Mike Peters</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Fresh Milk (2L)</td>
+                <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$28.50</td>
+                <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-accent/10 text-accent">Pending</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 19, 2026</td>
+              </tr>
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-003</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Emma Wilson</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Whole Grain Bread</td>
+                <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$12.75</td>
+                <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-secondary/10 text-secondary">Processing</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 18, 2026</td>
+              </tr>
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-004</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">David Brown</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Avocados (6pcs)</td>
+                <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$19.99</td>
+                <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Completed</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 17, 2026</td>
+              </tr>
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-005</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Lisa Chen</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Organic Honey (1kg)</td>
+                <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$34.25</td>
+                <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-accent/10 text-accent">Pending</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 16, 2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Quick Actions -->
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 reveal">
+          <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200 mb-5">Quick Actions</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <a href="#" class="flex flex-col items-center gap-3 p-5 rounded-2xl bg-primary/10 hover:bg-primary/20 transition-colors group">
+              <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+              </div>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Add Product</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-3 p-5 rounded-2xl bg-accent/10 hover:bg-accent/20 transition-colors group">
+              <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center group-hover:bg-accent/30 transition-colors">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              </div>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">View Reports</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-3 p-5 rounded-2xl bg-secondary/10 hover:bg-secondary/20 transition-colors group">
+              <div class="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center group-hover:bg-secondary/30 transition-colors">
+                <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Manage Staff</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-3 p-5 rounded-2xl bg-primary/10 hover:bg-primary/20 transition-colors group">
+              <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Send Promotions</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 reveal">
+          <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200 mb-5">Recent Activity</h2>
+          <div class="space-y-5">
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-primary mt-1.5"></div>
+                <div class="w-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
+              </div>
+              <div class="pb-5">
+                <p class="text-sm font-medium text-gray-800 dark:text-gray-200">New order #ORD-001 placed</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2 minutes ago</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent mt-1.5"></div>
+                <div class="w-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
+              </div>
+              <div class="pb-5">
+                <p class="text-sm font-medium text-gray-800 dark:text-gray-200">Payment received from Mike Peters</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">15 minutes ago</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-secondary mt-1.5"></div>
+                <div class="w-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
+              </div>
+              <div class="pb-5">
+                <p class="text-sm font-medium text-gray-800 dark:text-gray-200">Product "Organic Apples" restocked</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">1 hour ago</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-primary mt-1.5"></div>
+                <div class="w-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
+              </div>
+              <div class="pb-5">
+                <p class="text-sm font-medium text-gray-800 dark:text-gray-200">New customer registration: Emma Wilson</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">3 hours ago</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-accent mt-1.5"></div>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-800 dark:text-gray-200">Order #ORD-004 marked as delivered</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">5 hours ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!-- Tab: Products -->
+      <div id="tab-admin-products" class="tab-content hidden">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 mb-8">
+          <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+            <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200">Products</h2>
+            <button class="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-secondary transition-colors">+ Add Product</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-left text-sm text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-gray-800">
+                  <th class="px-6 py-4 font-medium">Product</th>
+                  <th class="px-6 py-4 font-medium">Category</th>
+                  <th class="px-6 py-4 font-medium">Price</th>
+                  <th class="px-6 py-4 font-medium">Stock</th>
+                  <th class="px-6 py-4 font-medium">Status</th>
+                  <th class="px-6 py-4 font-medium">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Organic Apples</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Fruits</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$4.99</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">150</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Active</span></td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">Edit</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Fresh Milk</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Dairy</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$3.49</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">200</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Active</span></td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">Edit</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Whole Grain Bread</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Bakery</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$2.75</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">80</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-accent/10 text-accent">Low Stock</span></td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">Edit</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Avocados</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Vegetables</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$5.99</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">0</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-500">Out of Stock</span></td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">Edit</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Organic Honey</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Pantry</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$12.99</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">75</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Active</span></td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">Edit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Orders -->
+      <div id="tab-admin-orders" class="tab-content hidden">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 mb-8">
+          <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+            <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200">All Orders</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-left text-sm text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-gray-800">
+                  <th class="px-6 py-4 font-medium">Order ID</th>
+                  <th class="px-6 py-4 font-medium">Customer</th>
+                  <th class="px-6 py-4 font-medium">Product</th>
+                  <th class="px-6 py-4 font-medium">Amount</th>
+                  <th class="px-6 py-4 font-medium">Status</th>
+                  <th class="px-6 py-4 font-medium">Date</th>
+                  <th class="px-6 py-4 font-medium">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-001</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Sarah Johnson</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Organic Apples (5kg)</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$45.99</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Completed</span></td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 20, 2026</td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">View</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-002</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Mike Peters</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Fresh Milk (2L)</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$28.50</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-accent/10 text-accent">Pending</span></td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 19, 2026</td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">View</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-003</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Emma Wilson</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Whole Grain Bread</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$12.75</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-secondary/10 text-secondary">Processing</span></td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 18, 2026</td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">View</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-004</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">David Brown</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Avocados (6pcs)</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$19.99</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Completed</span></td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 17, 2026</td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">View</button></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">#ORD-005</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Lisa Chen</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Organic Honey (1kg)</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$34.25</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-accent/10 text-accent">Pending</span></td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jan 16, 2026</td>
+                  <td class="px-6 py-4"><button class="text-sm text-primary hover:text-secondary font-semibold">View</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Customers -->
+      <div id="tab-admin-customers" class="tab-content hidden">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 mb-8">
+          <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+            <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200">Customers</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-left text-sm text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-gray-800">
+                  <th class="px-6 py-4 font-medium">Customer</th>
+                  <th class="px-6 py-4 font-medium">Email</th>
+                  <th class="px-6 py-4 font-medium">Orders</th>
+                  <th class="px-6 py-4 font-medium">Total Spent</th>
+                  <th class="px-6 py-4 font-medium">Joined</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Sarah Johnson</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">sarah@email.com</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">12</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$580.00</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Sep 2025</td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Mike Peters</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">mike@email.com</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">8</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$320.50</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Oct 2025</td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Emma Wilson</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">emma@email.com</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">15</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$720.25</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Aug 2025</td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">David Brown</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">david@email.com</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">5</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$150.00</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Nov 2025</td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">Lisa Chen</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">lisa@email.com</td>
+                  <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">20</td>
+                  <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200">$1,240.00</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Jul 2025</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Analytics -->
+      <div id="tab-admin-analytics" class="tab-content hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6 mb-8">
+          <div class="bg-primary/10 rounded-2xl p-6 hover-lift">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Page Views</p>
+            <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200 mt-1">45,231</p>
+          </div>
+          <div class="bg-secondary/10 rounded-2xl p-6 hover-lift">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Unique Visitors</p>
+            <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200 mt-1">12,845</p>
+          </div>
+          <div class="bg-accent/10 rounded-2xl p-6 hover-lift">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Conversion Rate</p>
+            <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200 mt-1">3.24%</p>
+          </div>
+          <div class="bg-primary/10 rounded-2xl p-6 hover-lift">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Avg. Order Value</p>
+            <p class="text-2xl font-heading font-bold text-gray-800 dark:text-gray-200 mt-1">$43.80</p>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+          <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200 mb-5">Revenue Over Time</h2>
+          <div class="h-64 flex items-end gap-2">
+            <div class="flex-1 bg-primary/20 rounded-t-lg" style="height:40%"></div>
+            <div class="flex-1 bg-primary/20 rounded-t-lg" style="height:65%"></div>
+            <div class="flex-1 bg-primary/20 rounded-t-lg" style="height:50%"></div>
+            <div class="flex-1 bg-primary/20 rounded-t-lg" style="height:80%"></div>
+            <div class="flex-1 bg-primary/20 rounded-t-lg" style="height:70%"></div>
+            <div class="flex-1 bg-primary/20 rounded-t-lg" style="height:90%"></div>
+            <div class="flex-1 bg-primary/20 rounded-t-lg" style="height:85%"></div>
+            <div class="flex-1 bg-primary rounded-t-lg" style="height:95%"></div>
+          </div>
+          <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-3">
+            <span>Jan 1</span><span>Jan 3</span><span>Jan 5</span><span>Jan 7</span><span>Jan 9</span><span>Jan 11</span><span>Jan 13</span><span>Jan 15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Settings -->
+      <div id="tab-admin-settings" class="tab-content hidden">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+          <h2 class="font-heading font-semibold text-lg text-gray-800 dark:text-gray-200 mb-6">Admin Profile</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
+              <input type="text" value="John Admin" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+              <input type="email" value="admin@freshmart.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
+              <input type="tel" value="+1 (555) 000-1234" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Role</label>
+              <input type="text" value="Administrator" disabled class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-sm cursor-not-allowed">
+            </div>
+          </div>
+          <button class="mt-6 px-6 py-3 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-secondary transition-colors">Save Changes</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+  const sidebar = document.getElementById('adminSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const isOpen = !sidebar.classList.contains('-translate-x-full');
+  if (isOpen) {
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+    document.body.style.overflow = '';
+  } else {
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function switchTab(e, tabId) {
+  e.preventDefault();
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.add('hidden'); });
+  document.getElementById('tab-' + tabId).classList.remove('hidden');
+  document.querySelectorAll('.nav-link').forEach(function(l) {
+    l.classList.remove('bg-primary/10', 'text-primary', 'font-semibold');
+    l.classList.add('text-gray-600', 'dark:text-gray-400');
+  });
+  e.currentTarget.classList.add('bg-primary/10', 'text-primary', 'font-semibold');
+  e.currentTarget.classList.remove('text-gray-600', 'dark:text-gray-400');
+  toggleSidebar();
+}
+</script>
+<script src="../assets/js/rtl.js"></script>
+<script src="../assets/js/theme.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+});
+</script>
+</body>
+</html>

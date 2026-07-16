@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - FreshMart</title>
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';if(t==='dark')document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: '#22C55E',
+        secondary: '#16A34A',
+        accent: '#F59E0B',
+      },
+      fontFamily: {
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+.revealed{opacity:1;transform:translateY(0)}
+.hover-lift{transition:transform .3s ease,box-shadow .3s ease}
+.hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.dark .hover-lift:hover{box-shadow:0 12px 32px rgba(255,255,255,.04)}
+</style>
+</head>
+<body class="bg-white dark:bg-black font-body text-gray-800 dark:text-gray-200">
+<div id="freshmart-navbar"></div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Breadcrumb -->
+  <nav class="text-sm mb-8">
+    <ol class="flex items-center space-x-2 text-secondary">
+      <li><a href="index.html" class="hover:text-primary transition-colors">Home</a></li>
+      <li class="text-gray-400">/</li>
+      <li class="text-primary font-medium">Checkout</li>
+    </ol>
+  </nav>
+
+  <h1 class="text-2xl sm:text-3xl font-heading font-bold mb-8 text-secondary">Checkout</h1>
+
+  <div class="flex flex-col lg:flex-row gap-8">
+    <!-- Left Column - Shipping Form -->
+    <div class="flex-1 space-y-8">
+      <!-- Shipping Information -->
+      <div class="reveal bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
+        <h2 class="font-heading font-bold text-xl mb-6 text-secondary">Shipping Information</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-2 text-secondary">Full Name</label>
+            <input type="text" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800" placeholder="John Doe">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2 text-secondary">Email</label>
+            <input type="email" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800" placeholder="john@example.com">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium mb-2 text-secondary">Phone</label>
+            <input type="tel" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800" placeholder="(555) 123-4567">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium mb-2 text-secondary">Address</label>
+            <input type="text" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800" placeholder="123 Main Street">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2 text-secondary">City</label>
+            <input type="text" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800" placeholder="New York">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2 text-secondary">State</label>
+            <input type="text" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800" placeholder="NY">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2 text-secondary">ZIP Code</label>
+            <input type="text" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800" placeholder="10001">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium mb-2 text-secondary">Delivery Notes</label>
+            <textarea class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary bg-gray-50 dark:bg-gray-800 h-24 resize-none" placeholder="Leave at the door, ring bell, etc."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Options -->
+      <div class="reveal bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
+        <h2 class="font-heading font-bold text-xl mb-6 text-secondary">Delivery Options</h2>
+        
+        <div class="space-y-4">
+          <label class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-primary transition-colors">
+            <input type="radio" name="delivery" value="standard" checked class="w-5 h-5 text-primary focus:ring-primary">
+            <div class="ml-4 flex-1">
+              <div class="flex justify-between items-center">
+                <span class="font-medium text-secondary">Standard Delivery</span>
+                <span class="font-bold text-primary">Free</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">3-5 business days</p>
+            </div>
+          </label>
+          
+          <label class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-primary transition-colors">
+            <input type="radio" name="delivery" value="express" class="w-5 h-5 text-primary focus:ring-primary">
+            <div class="ml-4 flex-1">
+              <div class="flex justify-between items-center">
+                <span class="font-medium text-secondary">Express Delivery</span>
+                <span class="font-bold text-secondary">$4.99</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">1-2 business days</p>
+            </div>
+          </label>
+          
+          <label class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-primary transition-colors">
+            <input type="radio" name="delivery" value="sameday" class="w-5 h-5 text-primary focus:ring-primary">
+            <div class="ml-4 flex-1">
+              <div class="flex justify-between items-center">
+                <span class="font-medium text-secondary">Same-day Delivery</span>
+                <span class="font-bold text-accent">$9.99</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Delivered today</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="reveal bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
+        <h2 class="font-heading font-bold text-xl mb-6 text-secondary">Payment Method</h2>
+        
+        <div class="space-y-4">
+          <label class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-primary transition-colors">
+            <input type="radio" name="payment" value="credit" checked class="w-5 h-5 text-primary focus:ring-primary">
+            <div class="ml-4 flex-1">
+              <span class="font-medium text-secondary">Credit Card</span>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Visa, Mastercard, AMEX</p>
+            </div>
+            <div class="w-12 h-8 bg-secondary rounded flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+              </svg>
+            </div>
+          </label>
+          
+          <label class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-primary transition-colors">
+            <input type="radio" name="payment" value="paypal" class="w-5 h-5 text-primary focus:ring-primary">
+            <div class="ml-4 flex-1">
+              <span class="font-medium text-secondary">PayPal</span>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Pay with your PayPal account</p>
+            </div>
+            <div class="w-12 h-8 bg-primary rounded flex items-center justify-center">
+              <span class="text-white font-bold text-sm">PP</span>
+            </div>
+          </label>
+          
+          <label class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-primary transition-colors">
+            <input type="radio" name="payment" value="cod" class="w-5 h-5 text-primary focus:ring-primary">
+            <div class="ml-4 flex-1">
+              <span class="font-medium text-secondary">Cash on Delivery</span>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Pay when you receive your order</p>
+            </div>
+            <div class="w-12 h-8 bg-accent rounded flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Order Summary -->
+    <div class="w-full lg:w-96">
+      <div class="reveal bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm sticky top-24">
+        <h2 class="font-heading font-bold text-xl mb-6 text-secondary">Order Summary</h2>
+        
+        <!-- Items -->
+        <div class="space-y-4 mb-6">
+          <div class="flex items-center gap-3">
+            <img src="assets/images/orange-juice.jpg" alt="Organic Avocados" class="w-12 h-12 object-cover rounded-lg">
+            <div class="flex-1">
+              <p class="font-medium text-sm text-secondary">Organic Avocados</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">x2</p>
+            </div>
+            <span class="font-medium text-secondary">$9.98</span>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <img src="assets/images/greek-yogurt-pack.jpg" alt="Greek Yogurt Pack" class="w-12 h-12 object-cover rounded-lg">
+            <div class="flex-1">
+              <p class="font-medium text-sm text-secondary">Greek Yogurt Pack</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">x1</p>
+            </div>
+            <span class="font-medium text-secondary">$5.49</span>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <img src="assets/images/sourdough-bread.jpg" alt="Sourdough Bread" class="w-12 h-12 object-cover rounded-lg">
+            <div class="flex-1">
+              <p class="font-medium text-sm text-secondary">Sourdough Bread</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">x3</p>
+            </div>
+            <span class="font-medium text-secondary">$11.97</span>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-3 mb-6">
+          <div class="flex justify-between text-gray-600 dark:text-gray-400">
+            <span>Subtotal</span>
+            <span class="font-medium">$27.44</span>
+          </div>
+          <div class="flex justify-between text-gray-600 dark:text-gray-400">
+            <span>Delivery</span>
+            <span class="font-medium text-primary">Free</span>
+          </div>
+          <div class="flex justify-between text-gray-600 dark:text-gray-400">
+            <span>Discount</span>
+            <span class="font-medium text-primary">-$2.00</span>
+          </div>
+          <div class="border-t border-gray-200 dark:border-gray-700 pt-3 flex justify-between">
+            <span class="font-heading font-bold text-lg">Total</span>
+            <span class="font-heading font-bold text-xl text-primary">$25.44</span>
+          </div>
+        </div>
+
+        <button class="w-full py-3 bg-primary text-white rounded-xl font-heading font-semibold hover:bg-secondary transition-colors">Place Order</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="freshmart-footer"></div>
+
+<script src="assets/js/rtl.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/navbar.js"></script>
+<script src="assets/js/footer.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - FreshMart</title>
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<script>(function(){var t=localStorage.getItem('freshmart-theme')||'light';if(t==='dark')document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: '#22C55E',
+        secondary: '#16A34A',
+        accent: '#F59E0B',
+      },
+      fontFamily: {
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+.revealed{opacity:1;transform:translateY(0)}
+.hover-lift{transition:transform .3s ease,box-shadow .3s ease}
+.hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.dark .hover-lift:hover{box-shadow:0 12px 32px rgba(255,255,255,.04)}
+</style>
+</head>
+<body class="bg-white dark:bg-black font-body text-gray-800 dark:text-gray-200">
+<nav id="main-navbar" class="bg-white dark:bg-black shadow-md sticky top-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-16 lg:h-18">
+      <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+        <div class="w-9 h-9 bg-green-600 rounded-xl flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+        </div>
+        <div>
+          <span class="text-xl font-bold text-green-600 dark:text-green-400 font-['Poppins'] leading-none">FreshMart</span>
+          <p class="text-[10px] text-gray-500 dark:text-gray-400 leading-none">Fresh Groceries Delivered</p>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="toggleRTL()" class="p-2 text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors text-xs font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" title="Toggle RTL/LTR">RTL</button>
+        <button id="theme-toggle" class="p-2 text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" title="Toggle dark mode">
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="min-h-screen flex items-center justify-center p-4 lg:p-8">
+  <div class="w-full max-w-4xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row reveal">
+    <div class="w-full lg:w-1/2 p-8 lg:p-12">
+      <h1 class="font-heading text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-2">Create Account</h1>
+      <p class="text-gray-500 dark:text-gray-400 mb-8">Join FreshMart for the freshest groceries</p>
+
+      <form class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+          <input type="text" placeholder="John Doe" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+          <input type="email" placeholder="you@example.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+          <input type="tel" placeholder="+1 (555) 000-0000" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+          <input type="password" placeholder="Create a password" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirm Password</label>
+          <input type="password" placeholder="Confirm your password" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+        </div>
+
+        <label class="flex items-start gap-2 cursor-pointer pt-1">
+          <input type="checkbox" class="w-4 h-4 mt-0.5 rounded border-gray-300 text-primary focus:ring-primary">
+          <span class="text-sm text-gray-600 dark:text-gray-400">I agree to the <a href="#" class="text-primary font-medium hover:text-secondary">Terms of Service</a> and <a href="#" class="text-primary font-medium hover:text-secondary">Privacy Policy</a></span>
+        </label>
+
+        <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 rounded-lg transition hover-lift mt-2">Create Account</button>
+      </form>
+
+      <p class="text-center mt-6 text-sm text-gray-500 dark:text-gray-400">
+        Already have an account? <a href="login.html" class="font-semibold text-primary hover:text-secondary transition">Login</a>
+      </p>
+    </div>
+
+    <div class="hidden lg:block w-1/2 relative">
+      <img src="assets/images/l2.jpg" alt="Fresh groceries" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-secondary/70"></div>
+      <div class="relative z-10 flex items-center justify-center h-full text-center px-12">
+        <div>
+          <h2 class="font-heading text-3xl font-bold text-white mb-4">Start Fresh Today</h2>
+          <p class="text-white/90 text-lg">Join thousands of happy customers enjoying premium groceries delivered fast.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/rtl.js?v=3"></script>
+<script src="assets/js/theme.js?v=3"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) entry.target.classList.add('revealed');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el) { observer.observe(el); });
+});
+</script>
+</body>
+</html>
