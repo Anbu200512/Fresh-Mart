@@ -106,7 +106,7 @@ function showToast(message, type = 'success') {
   const colors = {
     success: 'bg-green-600',
     error: 'bg-red-600',
-    info: 'bg-blue-600',
+    info: 'bg-primary',
     warning: 'bg-amber-500'
   };
   toast.className = `fixed top-20 right-4 ${colors[type] || colors.success} text-white px-6 py-3 rounded-xl shadow-2xl z-[200] transform translate-x-full transition-transform duration-300 text-sm font-medium`;
