@@ -64,7 +64,7 @@ function loadFooter() {
           <ul class="space-y-3">
             <li><a href="index.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Home</a></li>
             <li><a href="shop.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Shop</a></li>
-            <li><a href="categories.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Categories</a></li>
+            <li><a href="shop.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Categories</a></li>
             <li><a href="weekly-deals.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Weekly Deals</a></li>
             <li><a href="departments.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Departments</a></li>
             <li><a href="about.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>About Us</a></li>
@@ -79,11 +79,11 @@ function loadFooter() {
           </h4>
           <ul class="space-y-3">
             <li><a href="contact.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Contact Us</a></li>
-            <li><a href="faq.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>FAQ</a></li>
-            <li><a href="delivery.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Delivery Info</a></li>
-            <li><a href="safety.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Food Safety</a></li>
-            <li><a href="privacy.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Privacy Policy</a></li>
-            <li><a href="terms.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Terms</a></li>
+            <li><a href="about.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>FAQ</a></li>
+            <li><a href="departments.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Delivery Info</a></li>
+            <li><a href="about.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Food Safety</a></li>
+            <li><a href="about.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Privacy Policy</a></li>
+            <li><a href="about.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Terms</a></li>
           </ul>
         </div>
 
@@ -96,10 +96,10 @@ function loadFooter() {
           <ul class="space-y-3">
             <li><a href="login.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Login / Register</a></li>
             <li><a href="dashboards/user-dashboard.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>My Dashboard</a></li>
-            <li><a href="orders.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Order History</a></li>
-            <li><a href="track-order.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Track Order</a></li>
-            <li><a href="wishlist.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Wishlist</a></li>
-            <li><a href="cart.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Shopping Cart</a></li>
+            <li><a href="dashboards/user-dashboard.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Order History</a></li>
+            <li><a href="dashboards/user-dashboard.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Track Order</a></li>
+            <li><a href="shop.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Wishlist</a></li>
+            <li><a href="checkout.html" class="text-sm hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-primary transition-colors"></span>Shopping Cart</a></li>
           </ul>
         </div>
 
@@ -126,7 +126,7 @@ function loadFooter() {
               <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               </div>
-              <span class="text-sm">support@freshmart.com</span>
+              <span class="text-sm">fm@fresh.com</span>
             </li>
           </ul>
         </div>
